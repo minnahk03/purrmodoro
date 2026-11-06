@@ -10,3 +10,13 @@ let x={...initial(),round:4};x=tick(toggle(x,0),1500000);assert.equal(x.phase,'l
 assert.equal(buy(initial(),'treat').coins,0);s=buy(s,'treat');assert.equal(s.coins,20);assert.equal(s.treats,1);s=buy(s,'play');assert.equal(s.coins,10);assert.equal(s.plays,1);
 assert.equal(tick(toggle(initial(),10000),0).remaining,1500000);
 console.log('PASS: rewards, pause/resume, duplicate ticks, deadline cap, breaks, rounds, purchases and clock rollback');
+const {migrate,reduce,recordWords,dayKey,level,countWords}=require(out);
+const now=new Date(2026,10,6,12).getTime();
+let v=migrate({coins:42,minutes:18,completed:2},now);assert.equal(v.coins,42);assert.equal(v.schema,2);assert.deepEqual(v.tasks,[]);
+v=recordWords(v,'note',100,now);assert.equal(v.words,0);v=recordWords(v,'note',120,now);assert.equal(v.words,20);assert.equal(v.coins,44);v=recordWords(v,'note',80,now);v=recordWords(v,'note',120,now);assert.equal(v.words,20);
+v=recordWords(v,'note',400,now);assert.equal(v.todayWords,300);assert.equal(v.goalClaimed,true);assert.equal(v.streak,1);const coins=v.coins;v=recordWords(v,'note',400,now);assert.equal(v.coins,coins);
+v=reduce(v,{type:'addTask',id:'1',text:'Read a page'},now);v=reduce(v,{type:'task',id:'1'},now);assert.equal(v.tasksDone,1);const earned=v.coins;v=reduce(v,{type:'task',id:'1'},now);v=reduce(v,{type:'task',id:'1'},now);assert.equal(v.coins,earned);
+v=reduce(v,{type:'quest',id:'words'},now);const questCoins=v.coins;v=reduce(v,{type:'quest',id:'words'},now);assert.equal(v.coins,questCoins);
+let running=toggle(initial(now),now);running=reduce(running,{type:'settings',settings:{focus:10}},now+1000);assert.equal(running.duration,1500000);assert.equal(running.remaining,1499000);running=reduce(running,{type:'reset'},now+1000);assert.equal(running.duration,600000);assert.equal(running.deadline,null);
+v=tick(v,now+86400000);assert.equal(v.todayWords,0);assert.equal(v.goalClaimed,false);assert.deepEqual(v.quests,[]);assert.equal(level(50).n,2);assert.equal(countWords('A tiny cat, isn’t it?'),5);
+console.log('PASS: migration, writing baseline/high-water, daily rewards, non-repeatable task/quest rewards, timer settings, daily reset, levels');

@@ -5,17 +5,16 @@
   "author": "Minnah",
   "version": {
     "major": 0,
-    "minor": 0,
-    "patch": 3
+    "minor": 1,
+    "patch": 0
   },
   "theme": [],
   "enableOnMobile": false,
-  "description": "A cosy floating cat Pomodoro timer. Earn focus coins for treats and play.",
+  "description": "A wandering pixel ragdoll study companion. Focus, write and finish tasks to earn coins, level up, and enjoy treats and play.",
   "requestNative": false,
   "requiredScopes": [
     {
-      "type": "DescendantsOfName",
-      "remName": "Purrmodoro",
+      "type": "FocusedSubtree",
       "level": "Read"
     }
   ],

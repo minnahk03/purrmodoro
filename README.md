@@ -1,50 +1,15 @@
-# Purrmodoro — your little study companion
+# Purrmodoro — Study Cat
 
-A RemNote desktop/web plugin with a ginger cat at the bottom-right of your screen.
+A little focus. A little purr.
 
-## Install
-1. Open RemNote → Settings → Plugins (or Plugins and Themes) → Build.
-2. Choose Upload Plugin and upload Purrmodoro-Plugin.zip (do not unzip that inner file).
-3. Enable the plugin. Mochi should appear in the bottom-right corner.
-4. If hidden, open RemNote's command search and run “Purrmodoro: show study cat”.
+Meet a fluffy, blue-eyed pixel ragdoll who keeps you company in RemNote. Your cat wanders along the bottom of your screen, then settles down to sit or sleep while you focus. A speech bubble shows the time remaining. Click your cat to open its small menu.
 
-If your RemNote version does not offer ZIP installation, use the development route below. Installation in a signed-in RemNote account has not been tested in this build.
+- **Make focus your own:** choose focus time, short and long breaks, and sessions per cycle.
+- **Grow together:** earn coins and experience from focus minutes, writing and completing your own little task list.
+- **Make time for play:** spend coins on treats, playtime and accessories, or offer a free cuddle.
+- **Celebrate small wins:** daily writing goals, quests, badges and levels reward steady progress.
+- **Keep it comfortable:** change your cat’s name, size, movement and focus pose. Reduced-motion preferences are respected.
 
-## Use
-- Click the cog to set focus minutes, short and long breaks, sessions per set, your cat's name, and sound.
-- One complete focus minute earns one coin. Breaks and paused time earn none.
-- A treat costs 5 coins; play costs 10. The cat animates in response.
-- Start each interval yourself. After the last focus session, take a long break; the next set starts at session 1.
-- Minimise with “−” to keep a small cat and timer at the bottom of RemNote.
-- Reset restarts the current interval and preserves earned coins. Saving settings starts a new set.
-- Progress uses RemNote's local plugin storage on this device; it is not cloud synced. Keep one RemNote window active for this plugin to avoid conflicting writes.
-- A running interval uses a real clock deadline. If RemNote sleeps or closes, reopening reconciles only that interval, awards at most its focus minutes, and waits for you to start the next. Pause before stepping away if you do not want that time counted.
-- Sound depends on browser audio permissions. Visual completion always works.
-- No note content is read or changed. No external services or accounts are needed.
+Your companion keeps its progress on this device. Tasks are managed in the cat menu. Optional writing tracking counts increases in the note you are editing, including pasted words; it stores word counts and note identifiers, never note text. It needs read access to the focused note. Breaks and focus sessions start when you choose; your cat does not punish time away.
 
-## Preview
-Open Preview.html in a browser. This runs the same timer and cat UI with separate browser-local progress, and does not install into RemNote.
-
-## Development
-The repository uses the official RemNote React plugin template (MIT).
-Install Node.js, open a terminal in the repository folder, run `npm ci`, then `npm run dev`.
-In RemNote → Settings → Plugins → Build → Develop from localhost, enter http://localhost:8080.
-Keep the terminal running while developing. `npm run check-types` checks TypeScript; `npm run build` creates PluginZip.zip.
-
-API references:
-https://plugins.remnote.com/getting-started/quick_start_guide
-https://plugins.remnote.com/advanced/widgets
-https://plugins.remnote.com/api/classes/WindowNamespace
-
-## Validation
-TypeScript, production bundle validation, and timer/reward automated tests are run during packaging. Actual RemNote host placement/activation still needs verification in your account.
-
-## Repository
-https://github.com/minnahk03/purrmodoro
-
-Version 0.0.2 corrects the repository URL for RemNote installation.
-
-## Version 0.0.3: startup and appearance fix
-The manifest now declares a Read permission scoped to descendants of a Rem named Purrmodoro, so SDK event listeners have a registered Read scope without requesting access to all notes. The timer code does not read or edit notes. The cat uses CSS artwork: blinking, breathing, tail swishing, eating and playing animations; fish and wool are emoji. App.css is shipped explicitly for the React SDK stylesheet URL.
-
-Upload the new Purrmodoro-Plugin.zip directly (do not extract it), accept the scoped permission if prompted, then disable/re-enable the plugin or restart RemNote to reload its manifest. Run the command “Purrmodoro: show study cat” if hidden. RemNote host activation still needs verification in your account.
+Original ragdoll artwork inspired by a real cat, with a cosy pixel-pet feel.

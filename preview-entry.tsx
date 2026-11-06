@@ -1,4 +1,12 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './src/App';
-ReactDOM.render(<App load={async()=>JSON.parse(localStorage.getItem('purrmodoro-preview')||'null')} save={async s=>{localStorage.setItem('purrmodoro-preview',JSON.stringify(s));}}/>,document.getElementById('app'));
+import {Pet} from './src/Pet';
+import {Menu} from './src/Menu';
+import {migrate,tick,reduce,recordWords,countWords,Action} from './src/engine';
+function Preview(){const [s,set]=useState(()=>migrate(JSON.parse(localStorage.getItem('purrmodoro-preview-v2')||'null'))),[open,O]=useState(true),[text,T]=useState(''),[x,X]=useState(45),[step,S]=useState(0);const dir=React.useRef(1);
+ useEffect(()=>{const t=setInterval(()=>set(v=>tick(v,Date.now())),1000);return()=>clearInterval(t)},[]);useEffect(()=>localStorage.setItem('purrmodoro-preview-v2',JSON.stringify(s)),[s]);
+ const walk=s.motion&&s.wander&&!open&&!(s.phase==='focus'&&s.deadline)&&s.actionUntil<Date.now();
+ useEffect(()=>{if(!walk)return;const t=setInterval(()=>{X(v=>{if(v>=85)dir.current=-1;if(v<=2)dir.current=1;return v+dir.current*.3});S(v=>v+1)},180);return()=>clearInterval(t)},[walk]);
+ const send=(a:Action)=>{if(a.type==='menu'){O(v=>!v);return}if(a.type==='resetPosition'){X(80);return}set(v=>reduce(v,a))};
+ return <><main className="preview-note"><small>PURRMODORO · INTERACTIVE PREVIEW</small><h1>Small steps, soft paws.</h1><p>Click your cat to open its menu. Start a focus session and it will settle down beside you.</p><textarea aria-label="Try writing" placeholder="Try writing here to test your word goal…" value={text} onChange={e=>{T(e.target.value);set(v=>recordWords(v,'preview',countWords(e.target.value)))}}/><p>This preview stores its own progress in your browser. RemNote progress is separate.</p></main><div style={{position:'fixed',bottom:8,left:`${x}%`}}><Pet s={s} src={(window as any).SPRITES} walking={walk} left={dir.current<0} step={step} onClick={()=>O(v=>!v)}/></div>{open&&<div style={{position:'fixed',right:24,bottom:24}}><Menu s={s} send={send}/></div>}</>;
+}ReactDOM.render(<Preview/>,document.getElementById('app'));
