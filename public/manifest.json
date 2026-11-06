@@ -6,12 +6,18 @@
   "version": {
     "major": 0,
     "minor": 0,
-    "patch": 2
+    "patch": 3
   },
   "theme": [],
   "enableOnMobile": false,
   "description": "A cosy floating cat Pomodoro timer. Earn focus coins for treats and play.",
   "requestNative": false,
-  "requiredScopes": [],
+  "requiredScopes": [
+    {
+      "type": "DescendantsOfName",
+      "remName": "Purrmodoro",
+      "level": "Read"
+    }
+  ],
   "repoUrl": "https://github.com/minnahk03/purrmodoro"
 }

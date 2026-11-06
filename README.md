@@ -43,3 +43,8 @@ TypeScript, production bundle validation, and timer/reward automated tests are r
 https://github.com/minnahk03/purrmodoro
 
 Version 0.0.2 corrects the repository URL for RemNote installation.
+
+## Version 0.0.3: startup and appearance fix
+The manifest now declares a Read permission scoped to descendants of a Rem named Purrmodoro, so SDK event listeners have a registered Read scope without requesting access to all notes. The timer code does not read or edit notes. The cat uses CSS artwork: blinking, breathing, tail swishing, eating and playing animations; fish and wool are emoji. App.css is shipped explicitly for the React SDK stylesheet URL.
+
+Upload the new Purrmodoro-Plugin.zip directly (do not extract it), accept the scoped permission if prompted, then disable/re-enable the plugin or restart RemNote to reload its manifest. Run the command “Purrmodoro: show study cat” if hidden. RemNote host activation still needs verification in your account.
