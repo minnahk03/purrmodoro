@@ -1,6 +1,6 @@
 # Development and installation
 
-Run `npm ci`, `npm run check-types`, `node test-engine.cjs`, then `npm run build`.
+Run `npm ci`, `npm run check-types`, `node test-engine.cjs`, `node test-messaging.cjs`, then `npm run build`.
 The installable archive is `PluginZip.zip`; `manifest.json` is at its root.
 `Purrmodoro-Plugin.zip` in this repository is the same built archive.
 Do not upload GitHub's source-code ZIP or a folder containing another ZIP.
@@ -12,3 +12,5 @@ This build uses RemNote's floating-widget positioning API, never parent-frame DO
 Writing rewards use per-note high-water counts: opening an existing note establishes a baseline. Deleting and retyping up to that baseline earns nothing extra. Tasks are plugin-local, not imported RemNote tasks. Progress is device-local; uninstalling may remove it.
 
 Artwork: original generated pixel sprite sheet, six poses. No reference photograph is shipped. Walking uses two alternating poses. Optional accessories are small overlays. Build covers both standard and sandbox widget entries.
+
+Version 0.1.1 fixes the startup hang by reading RemNote broadcast events from `event.message` in the controller, cat and menu. It also retries the initial state request and reports a connection timeout. Messaging integration tests simulate wrapped and direct events; signed-in RemNote verification remains required.
