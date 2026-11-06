@@ -1,0 +1,12 @@
+const esbuild=require('esbuild'),assert=require('node:assert/strict'),os=require('node:os'),path=require('node:path');
+const out=path.join(os.tmpdir(),'purrmodoro-engine-test.cjs');
+esbuild.buildSync({entryPoints:['src/engine.ts'],bundle:true,platform:'node',format:'cjs',outfile:out});
+const {initial,tick,toggle,buy}=require(out);
+let s=toggle(initial(),1000);s=tick(s,61000);assert.equal(s.coins,1);assert.equal(tick(s,61000).coins,1);
+s=toggle(s,91000);assert.equal(s.deadline,null);assert.equal(tick(s,999999).coins,1);s=toggle(s,1000000);s=tick(s,1030000);assert.equal(s.coins,2);
+s=tick(s,99999999);assert.equal(s.coins,25);assert.equal(s.phase,'break');assert.equal(s.completed,1);assert.equal(s.deadline,null);assert.equal(tick(s,999999999).coins,25);
+s=toggle(s,100000000);s=tick(s,100300000);assert.equal(s.coins,25);assert.equal(s.phase,'focus');assert.equal(s.round,2);
+let x={...initial(),round:4};x=tick(toggle(x,0),1500000);assert.equal(x.phase,'long');x=tick(toggle(x,1500000),2400000);assert.equal(x.phase,'focus');assert.equal(x.round,1);
+assert.equal(buy(initial(),'treat').coins,0);s=buy(s,'treat');assert.equal(s.coins,20);assert.equal(s.treats,1);s=buy(s,'play');assert.equal(s.coins,10);assert.equal(s.plays,1);
+assert.equal(tick(toggle(initial(),10000),0).remaining,1500000);
+console.log('PASS: rewards, pause/resume, duplicate ticks, deadline cap, breaks, rounds, purchases and clock rollback');

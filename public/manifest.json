@@ -1,0 +1,17 @@
+{
+  "manifestVersion": 1,
+  "id": "purrmodoro-study-cat",
+  "name": "Purrmodoro \u2014 Study Cat",
+  "author": "Minnah",
+  "version": {
+    "major": 0,
+    "minor": 0,
+    "patch": 2
+  },
+  "theme": [],
+  "enableOnMobile": false,
+  "description": "A cosy floating cat Pomodoro timer. Earn focus coins for treats and play.",
+  "requestNative": false,
+  "requiredScopes": [],
+  "repoUrl": "https://github.com/minnahk03/purrmodoro"
+}
